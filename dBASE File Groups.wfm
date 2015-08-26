@@ -1,0 +1,281 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 06/17/2015
+//
+parameter bModal
+local f
+f = new dbaseFileGroupsForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class dbaseFileGroupsForm of FORM
+   with (this)
+      onOpen = class::FORM_ONOPEN
+      height = 24.9545
+      left = 7.4286
+      top = 1.5455
+      width = 132.2857
+      text = "dBASE Files by group"
+      pageno = 1
+   endwith
+
+   this.LISTVIEW1 = new LISTVIEW(this)
+   with (this.LISTVIEW1)
+      height = 22.5
+      left = 0.0
+      top = 2.3636
+      width = 132.0
+      colorNormal = "0x40/0xf3f3f3"
+      showGroups = true
+      mode = 3	// Details
+   endwith
+
+   this.R0LARGE = new RADIOBUTTON(this)
+   with (this.R0LARGE)
+      onChange = class::R0LARGE_ONCHANGE
+      height = 1.0909
+      left = 2.0
+      top = 0.5
+      width = 12.0
+      text = "Large Icon"
+      group = true
+      value = true
+   endwith
+
+   this.R1SMALL = new RADIOBUTTON(this)
+   with (this.R1SMALL)
+      onChange = class::R0LARGE_ONCHANGE
+      height = 1.0909
+      left = 15.0
+      top = 0.5
+      width = 11.4286
+      text = "Small Icon"
+   endwith
+
+   this.R3DETAIL = new RADIOBUTTON(this)
+   with (this.R3DETAIL)
+      onChange = class::R0LARGE_ONCHANGE
+      height = 1.0909
+      left = 27.8571
+      top = 0.5
+      width = 8.8571
+      text = "Details"
+   endwith
+
+   this.R4TILE = new RADIOBUTTON(this)
+   with (this.R4TILE)
+      onChange = class::R0LARGE_ONCHANGE
+      height = 1.0909
+      left = 37.7143
+      top = 0.5
+      width = 7.4286
+      text = "Tile"
+   endwith
+
+   this.PBOPENSE = new PUSHBUTTON(this)
+   with (this.PBOPENSE)
+      onClick = class::PBOPENSE_ONCLICK
+      height = 1.0909
+      left = 59.7143
+      top = 0.4545
+      width = 21.5714
+      text = "Open in Source Editor"
+   endwith
+
+   this.PBBROWSER = new PUSHBUTTON(this)
+   with (this.PBBROWSER)
+      onClick = class::PBBROWSER_ONCLICK
+      height = 1.0909
+      left = 81.8571
+      top = 0.4545
+      width = 21.5714
+      text = "Open in Browser"
+   endwith
+
+   this.PBRUN = new PUSHBUTTON(this)
+   with (this.PBRUN)
+      onClick = class::PBRUN_ONCLICK
+      height = 1.0909
+      left = 104.2857
+      top = 0.4545
+      width = 21.5714
+      text = "Run File"
+   endwith
+
+
+   function PBBROWSER_onClick()
+   Private cUse
+      for x = 1 to form.listview1.items.size
+		   if form.listview1.items[x].selected 
+			   if ".dbf" $ lower(form.listview1.items[x].text)
+					try
+						cUse = "USE '"+SET("DIRECTORY")+"\"+form.listview1.items[x].text+"'"
+						&cUse.
+						BROWSE
+					catch (dbexception db)
+						MsgBox(db.errors[1].message)
+					catch (exception e)
+						Msgbox(e.message)
+					endtry
+				endif	
+			endif	
+		endfor    
+   return
+	
+   function PBOPENSE_onClick()
+	Private cModify
+      for x = 1 to form.listview1.items.size
+		   if form.listview1.items[x].selected 
+			   if NOT ".dbf" $ lower(form.listview1.items[x].text)
+					try
+						cModify = "MODI COMM '"+form.listview1.items[x].text+"'"
+						&cModify
+					catch (exception e)
+						Msgbox(e.message)
+					endtry
+				endif	
+			endif	
+		endfor 
+   return
+   
+   function PBRUN_onClick()
+   Private cRUN
+      for x = 1 to form.listview1.items.size
+		   if form.listview1.items[x].selected 
+			   if NOT ".dbf" $ lower(form.listview1.items[x].text)
+					try
+						cRUN = "DO '"+form.listview1.items[x].text+"'"
+						&cRUN.
+					catch (exception e)
+						Msgbox(e.message)
+					endtry
+				endif	
+			endif	
+		endfor    
+   return
+	
+   function R0LARGE_onChange()
+     do CASE
+		CASE form.r0LARGE.value //option 0 - LargeIcon
+		   form.pageno = 1
+		   form.listview1.mode = 0
+		CASE form.r1SMALL.value //option 1 - Small Icon
+		   form.pageno = 1
+		   form.listview1.mode = 1
+		CASE form.r3DETAIL.value //option 3 - Details
+		   form.pageno = 1
+		   form.listview1.mode = 3
+		CASE form.r4TILE.value //option 4 - Tile
+		   form.pageno = 1
+		   form.listview1.mode = 4
+		ENDCASE
+   return
+		
+   function form_onOpen()
+	  	//populate the listview with dBASE Files each type in it's own group
+	
+	   //Get list of files
+      aDir = new array()
+      aDir.dir()	
+		aFiles = new array()
+		for x = 1 to aDir.size/5 
+		   if NOT ("D" $ aDir[x,5] OR "S" $ aDir[x,5] OR "H" $ aDir[x,5])
+			   //it is a file with no attributes like  system Hidden or directory
+				aFiles.add(aDir[x,1]) //add file name
+			endif	
+		endfor
+		
+		//remove backups
+		if aFiles.size>0
+		   for x = aFiles.size to 1 step -1
+			   //take out backups 
+				if "backup" $ lower(aFiles[x])
+				   aFiles.delete(x)
+					aFiles.size = aFiles.size-1 //decrement size of array
+				endif	
+			endfor
+		endif	 
+		?afiles.size
+		
+		if aFiles.size>0 //if there are still files in the array after removing backups
+			//get list of only the files types I want to see
+			aDBF = new array()
+			aWFM = new array()
+			aPRG = new array()
+			aREP = new array()
+			
+		   for x = 1 to afiles.size
+			
+			   if ".dbf" $ lower(aFiles[x]) 
+				   aDBF.add(aFiles[x])
+				endif	
+				if	".prg" $ lower(aFiles[x])
+				    aPRG.add(aFiles[x])
+				endif	 
+				if	".wfm" $ lower(aFiles[x])
+				   aWFM.add(aFiles[x])
+				endif	
+				if	".rep" $ lower(aFiles[x])
+				   aREP.add(aFiles[x])
+				endif				
+			endfor
+			
+		endif
+		
+		//create a group for each file type
+		//add the files from the arrays created above and assign them to the correct group
+		nGroups = 0
+		if aDBF.size > 0 
+		?"dbfs "+aDBF.size
+		   gDBF = new listgroup( form.listview1 )
+			gDBF.text = "DBF"
+			form.listview1.groups.add(gDBF)
+			nGroups++
+			form.listview1.addItemsFromArray(aDBF,"FILENAME dbf.ico",form.listview1.groups[nGroups])
+		endif	
+		if aPRG.size > 0 
+		?"prgs "+aPRG.size
+		   gPRG = new listgroup( form.listview1 )
+			gPRG.text = "PRG"
+			form.listview1.groups.add(gPRG)
+			nGroups++
+			form.listview1.addItemsFromArray(aPRG,"FILENAME prg.ico",form.listview1.groups[nGroups])
+		endif	
+		if aWFM.size > 0 
+		?"wfms "+aWFM.size
+		   gWFM = new listgroup( form.listview1 )
+			gWFM.text = "WFM"
+			form.listview1.groups.add(gWFM)
+			nGroups++
+			form.listview1.addItemsFromArray(aWFM,"FILENAME wfm.ico",form.listview1.groups[nGroups])
+		endif	
+		if aREP.size > 0 
+		?"reps "+aREP.size
+		   gREP = new listgroup( form.listview1 )
+			gREP.text = "REP"
+			form.listview1.groups.add(gREP)
+			nGroups++
+			form.listview1.addItemsFromArray(aREP,"FILENAME rep.ico",form.listview1.groups[nGroups])
+ 	   endif	
+		form.listview1.columnCount = 2
+		form.listview1.columns[1].text = "File Name"
+		form.listview1.columns[2].text = "Size"
+		f = new file() /// use file class to get additional file info 
+		for x = 1 to form.listview1.items.size
+			nSize = f.size(form.listview1.items[x].text)/1024 
+			cSize = nSize + " KB"
+			form.listview1.items[x].details = 'ARRAY {cSize}'
+		endfor
+		form.listview1.mode = 3 //details
+		?"total items "+form.listview1.itemcount
+     
+	  this.r3Detail.value = true
+	  
+   return
+
+endclass
+
