@@ -1,7 +1,6 @@
 ** END HEADER -- do not remove this line
-//KK adding a change
 //
-// Generated on 06/17/2015
+// Generated on 04/26/2016
 //
 parameter bModal
 local f
@@ -17,8 +16,8 @@ class dbaseFileGroupsForm of FORM
    with (this)
       onOpen = class::FORM_ONOPEN
       height = 24.9545
-      left = 7.4286
-      top = 1.5455
+      left = 0.2857
+      top = 1.4091
       width = 132.2857
       text = "dBASE Files by group"
       pageno = 1
@@ -30,6 +29,7 @@ class dbaseFileGroupsForm of FORM
       left = 0.0
       top = 2.3636
       width = 132.0
+      tileWidth = 70
       colorNormal = "0x40/0xf3f3f3"
       showGroups = true
       mode = 3	// Details
@@ -81,7 +81,7 @@ class dbaseFileGroupsForm of FORM
    with (this.PBOPENSE)
       onClick = class::PBOPENSE_ONCLICK
       height = 1.0909
-      left = 59.7143
+      left = 47.0
       top = 0.4545
       width = 21.5714
       text = "Open in Source Editor"
@@ -91,7 +91,7 @@ class dbaseFileGroupsForm of FORM
    with (this.PBBROWSER)
       onClick = class::PBBROWSER_ONCLICK
       height = 1.0909
-      left = 81.8571
+      left = 69.1429
       top = 0.4545
       width = 21.5714
       text = "Open in Browser"
@@ -101,7 +101,7 @@ class dbaseFileGroupsForm of FORM
    with (this.PBRUN)
       onClick = class::PBRUN_ONCLICK
       height = 1.0909
-      left = 104.2857
+      left = 91.5714
       top = 0.4545
       width = 21.5714
       text = "Run File"
@@ -127,6 +127,7 @@ class dbaseFileGroupsForm of FORM
 		endfor    
    return
 	
+
    function PBOPENSE_onClick()
 	Private cModify
       for x = 1 to form.listview1.items.size
@@ -143,6 +144,7 @@ class dbaseFileGroupsForm of FORM
 		endfor 
    return
    
+
    function PBRUN_onClick()
    Private cRUN
       for x = 1 to form.listview1.items.size
@@ -159,6 +161,7 @@ class dbaseFileGroupsForm of FORM
 		endfor    
    return
 	
+
    function R0LARGE_onChange()
      do CASE
 		CASE form.r0LARGE.value //option 0 - LargeIcon
@@ -176,6 +179,7 @@ class dbaseFileGroupsForm of FORM
 		ENDCASE
    return
 		
+
    function form_onOpen()
 	  	//populate the listview with dBASE Files each type in it's own group
 	
