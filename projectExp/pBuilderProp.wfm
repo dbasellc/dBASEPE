@@ -1,0 +1,194 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 05/16/2008
+//
+parameter bModal
+local f
+f = new ProjectExplorerPropertiesForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class ProjectExplorerPropertiesForm of FORM
+   with (this)
+      onClose = class::FORM_ONCLOSE
+      metric = 6	// Pixels
+      height = 219.0
+      width = 270.0
+      text = "Project Explorer Properties"
+      autoCenter = true
+   endwith
+
+   this.MAINNOTEBOOK = new NOTEBOOK(this)
+   with (this.MAINNOTEBOOK)
+      height = 174.0
+      left = 5.0
+      top = 8.0
+      width = 258.0
+      fontSize = 8.0
+      dataSource = 'ARRAY {"Project Settings","Explorer"}'
+   endwith
+
+   this.MAINNOTEBOOK.RECTANGLE1 = new RECTANGLE(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.RECTANGLE1)
+      left = 11.0
+      top = 28.0
+      width = 233.0
+      height = 129.0
+      text = "Source Path Format"
+   endwith
+
+   this.MAINNOTEBOOK.RECTANGLE2 = new RECTANGLE(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.RECTANGLE2)
+      left = 10.0
+      top = 42.0
+      width = 238.0
+      height = 49.0
+      text = "Display"
+      fontSize = 8.0
+      pageno = 2
+   endwith
+
+   this.MAINNOTEBOOK.ProjectLogoCHECK = new CHECKBOX(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.ProjectLogoCHECK)
+      height = 24.0
+      left = 31.0
+      top = 58.0
+      width = 207.0
+      text = "&Display Project Explorer Logo"
+      fontSize = 8.0
+      pageno = 2
+   endwith
+
+   this.MAINNOTEBOOK.RELATIVEBUTTON = new RADIOBUTTON(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.RELATIVEBUTTON)
+      height = 24.0
+      left = 40.0
+      top = 53.0
+      width = 188.0
+      text = "Save Using Relative Paths"
+      fontSize = 8.0
+      group = true
+      value = true
+   endwith
+
+   this.MAINNOTEBOOK.SRCALIASBUTTON = new RADIOBUTTON(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.SRCALIASBUTTON)
+      height = 24.0
+      left = 40.0
+      top = 83.0
+      width = 190.0
+      text = "Save Using Source Aliases"
+      fontSize = 8.0
+   endwith
+
+   this.MAINNOTEBOOK.FULLPATHBUTTON = new RADIOBUTTON(this.MAINNOTEBOOK)
+   with (this.MAINNOTEBOOK.FULLPATHBUTTON)
+      height = 24.0
+      left = 40.0
+      top = 115.0
+      width = 175.0
+      text = "Save Using Full Paths"
+      fontSize = 8.0
+   endwith
+
+   this.OKAYBUTTON = new PUSHBUTTON(this)
+   with (this.OKAYBUTTON)
+      onClick = {; form.saveSettings := true; form.close()}
+      height = 23.0
+      left = 42.0
+      top = 188.0
+      width = 70.0
+      text = "OK"
+      fontSize = 8.0
+   endwith
+
+   this.CANCELBUTTON = new PUSHBUTTON(this)
+   with (this.CANCELBUTTON)
+      onClick = {; form.close()}
+      height = 23.0
+      left = 118.0
+      top = 188.0
+      width = 70.0
+      text = "Cancel"
+      fontSize = 8.0
+   endwith
+
+   this.HELPBUTTON = new PUSHBUTTON(this)
+   with (this.HELPBUTTON)
+      onClick = {; help}
+      height = 23.0
+      left = 194.0
+      top = 188.0
+      width = 70.0
+      text = "&Help"
+      fontSize = 8.0
+   endwith
+
+
+   function form_onClose
+      this.setPathFormat()
+      this.project = null
+      return
+
+   function getShowLogo()
+      return this.mainNotebook.projectLogoCheck.value
+
+   function setShowLogo(showlogoValue)
+      this.mainNotebook.projectLogoCheck.value := showlogoValue
+      return
+
+   function init( oProject )
+      form.saveSettings = false
+
+      if not empty( oProject )
+         this.project = oProject
+         this.initPathFormat()
+      endif
+      return
+
+   function initPathFormat
+
+      do case
+      case this.Project.PrefPathFormat = "R"
+         this.MAINNOTEBOOK.RELATIVEBUTTON.value := true
+
+      case this.Project.PrefPathFormat = "S"
+         this.MAINNOTEBOOK.SRCALIASBUTTON.value := true
+
+      case this.Project.PrefPathFormat = "F"
+         this.MAINNOTEBOOK.FULLPATHBUTTON.value := true
+
+      otherwise
+         this.MAINNOTEBOOK.RELATIVEBUTTON.value := true
+      endcase
+
+      return
+
+   function setPathFormat
+      local oldPrefPathFormat
+      oldPrefPathFormat = this.Project.PrefPathFormat
+
+      do case
+      case this.MAINNOTEBOOK.RELATIVEBUTTON.value = true
+         this.Project.PrefPathFormat = "R"
+
+      case this.MAINNOTEBOOK.SRCALIASBUTTON.value = true
+       this.Project.PrefPathFormat = "S"
+
+      case this.MAINNOTEBOOK.FULLPATHBUTTON.value = true
+         this.Project.PrefPathFormat = "F"
+      endcase
+
+      if oldPrefPathFormat <> this.Project.PrefPathFormat
+         this.Project.modified = true
+      endif
+
+
+      return
+
+endclass
+

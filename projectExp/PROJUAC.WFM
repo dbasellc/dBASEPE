@@ -1,0 +1,158 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 09/16/2012
+//
+parameter bModal
+local f
+f = new ProjUACForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class ProjUACForm of FORM
+   with (this)
+      onOpen = class::PROJUAC_ONOPEN
+      height = 12.44
+      left = 35.7143
+      top = 2.6364
+      width = 48.3333
+      text = "User Account Control Settings"
+      autoCenter = true
+   endwith
+
+   this.UACRB1 = new RADIOBUTTON(this)
+   with (this.UACRB1)
+      height = 1.0909
+      left = 5.0
+      top = 1.0
+      width = 2.0
+      text = ""
+      group = true
+      value = true
+   endwith
+
+   this.UACRB2 = new RADIOBUTTON(this)
+   with (this.UACRB2)
+      height = 1.0909
+      left = 5.0
+      top = 4.0
+      width = 2.0
+      text = ""
+   endwith
+
+   this.UACRB3 = new RADIOBUTTON(this)
+   with (this.UACRB3)
+      height = 1.0909
+      left = 5.0
+      top = 7.5
+      width = 2.0
+      text = ""
+   endwith
+
+   this.TEXT1 = new TEXT(this)
+   with (this.TEXT1)
+      onLeftMouseUp = class::TEXT1_ONLEFTMOUSEUP
+      height = 2.5
+      left = 8.0
+      top = 1.0
+      width = 39.0
+      text = "Do you want to have your application use the default Runtime useUACPaths setting?"
+   endwith
+
+   this.TEXT2 = new TEXT(this)
+   with (this.TEXT2)
+      onLeftMouseUp = class::TEXT2_ONLEFTMOUSEUP
+      height = 2.5
+      left = 8.0
+      top = 3.5
+      width = 39.0
+      text = "Do you want your application to always set the registry useUACPaths=”Y” for Vista or Higher?   (this can over-ride the Runtime setting)"
+   endwith
+
+   this.TEXT3 = new TEXT(this)
+   with (this.TEXT3)
+      onLeftMouseUp = class::TEXT3_ONLEFTMOUSEUP
+      height = 3.0
+      left = 8.0
+      top = 6.5
+      width = 38.0
+      text = "Do you want your application to always set the registry useUACPaths=”N” for Vista or Higher? (this also over-ride’s the Runtime setting)"
+   endwith
+
+   this.PUSHBUTTON1 = new PUSHBUTTON(this)
+   with (this.PUSHBUTTON1)
+      onClick = {; form.saveSettings = true; form.close()}
+      height = 1.0455
+      left = 14.0
+      top = 10.5
+      width = 10.0
+      text = "OK"
+      fontSize = 8.0
+   endwith
+
+   this.PUSHBUTTON2 = new PUSHBUTTON(this)
+   with (this.PUSHBUTTON2)
+      onClick = {; form.saveSettings = false; form.close()}
+      height = 1.0455
+      left = 25.0
+      top = 10.5
+      width = 10.0
+      text = "Cancel"
+      fontSize = 8.0
+   endwith
+
+   this.PUSHBUTTON3 = new PUSHBUTTON(this)
+   with (this.PUSHBUTTON3)
+      onClick = {; help uac}
+      height = 1.0455
+      left = 36.0
+      top = 10.5
+      width = 10.0
+      text = "&Help"
+      fontSize = 8.0
+   endwith
+
+
+   function TEXT1_onLeftMouseUp(flags, col, row)
+      form.UACRB1.Value := true
+      return
+
+   function TEXT2_onLeftMouseUp(flags, col, row)
+      form.UACRB2.Value = true
+      return
+
+   function TEXT3_onLeftMouseUp(flags, col, row)
+      form.UACRB3.Value = true
+      return
+
+   //KK - added to read current UACRB value from project
+   function ProjUAC_ONOPEN
+      
+      if type("form.UACRB") # "U"
+         if form.UACRB == 1
+            form.UACRB1.value := true
+            form.UACRB2.value := false
+            form.UACRB3.value := false
+         endif
+         if form.UACRB == 2
+            form.UACRB1.value := false
+            form.UACRB2.value := true
+            form.UACRB3.value := false
+         endif
+         if form.UACRB == 3
+            form.UACRB1.value := false
+            form.UACRB2.value := false
+            form.UACRB3.value := true
+         endif
+      else
+         form.UACRB1.value := true
+         form.UACRB2.value := false
+         form.UACRB3.value := false
+      endif
+      return
+
+endclass
+

@@ -1,0 +1,786 @@
+#include ProjExp.h
+** END HEADER -- do not remove this line
+//
+// Generated on 12/01/2010
+//
+parameter formObj
+new PBUILDERPLUSMENU(formObj, "root")
+
+class PBUILDERPLUSMENU(formObj, name) of MENUBAR(formObj, name)
+   with (this)
+      onInitMenu = class::ROOT_ONINITMENU
+   endwith
+
+   this.FILE = new MENU(this)
+   with (this.FILE)
+      text = "&File"
+   endwith
+
+   this.FILE.NEWFILE = new MENU(this.FILE)
+   with (this.FILE.NEWFILE)
+      onClick = class::NEWFILE_ONCLICK
+      text = "&New"
+      shortCut = "Ctrl+N"
+   endwith
+
+   this.FILE.OPENFILE = new MENU(this.FILE)
+   with (this.FILE.OPENFILE)
+      onClick = class::OPENFILE_ONCLICK
+      text = "&Open Existing Project..."
+      shortCut = "Ctrl+O"
+   endwith
+
+   this.FILE.SEPARATOR1 = new MENU(this.FILE)
+   with (this.FILE.SEPARATOR1)
+      text = ""
+      separator = true
+   endwith
+
+   this.FILE.SAVEPROJECT = new MENU(this.FILE)
+   with (this.FILE.SAVEPROJECT)
+      onClick = class::SAVEPROJECT_ONCLICK
+      text = "&Save Project"
+      shortCut = "Ctrl+S"
+   endwith
+
+   this.FILE.SAVEPROJAS = new MENU(this.FILE)
+   with (this.FILE.SAVEPROJAS)
+      onClick = class::SAVEPROJAS_ONCLICK
+      text = "Save Project &As..."
+      shortCut = "CTRL-A"
+   endwith
+
+   this.FILE.SEPARATOR101 = new MENU(this.FILE)
+   with (this.FILE.SEPARATOR101)
+      text = ""
+      separator = true
+   endwith
+
+   this.FILE.COMPILE = new MENU(this.FILE)
+   with (this.FILE.COMPILE)
+      onClick = {;form.compileProg()}
+      text = "&Compile"
+   endwith
+
+   this.FILE.RUN = new MENU(this.FILE)
+   with (this.FILE.RUN)
+      onClick = {;form.runFile()}
+      text = "&Run"
+      shortCut = "F2"
+   endwith
+
+   this.FILE.OPENINDESIGNER = new MENU(this.FILE)
+   with (this.FILE.OPENINDESIGNER)
+      onClick = {;form.designProg()}
+      text = "Open in Desi&gner"
+      shortCut = "Shift+F2"
+   endwith
+
+   this.FILE.OPENINSOURCEEDITOR = new MENU(this.FILE)
+   with (this.FILE.OPENINSOURCEEDITOR)
+      onClick = {;form.editProg()}
+      text = "Open in &Source Editor"
+   endwith
+
+   this.FILE.MENU46 = new MENU(this.FILE)
+   with (this.FILE.MENU46)
+      text = ""
+      separator = true
+   endwith
+
+   this.FILE.MRU1 = new MENU(this.FILE)
+   with (this.FILE.MRU1)
+      onClick = class::MRU1_ONCLICK
+      text = "1."
+   endwith
+
+   this.FILE.MRU2 = new MENU(this.FILE)
+   with (this.FILE.MRU2)
+      onClick = class::MRU2_ONCLICK
+      text = "2."
+   endwith
+
+   this.FILE.MRU3 = new MENU(this.FILE)
+   with (this.FILE.MRU3)
+      onClick = class::MRU3_ONCLICK
+      text = "3."
+   endwith
+
+   this.FILE.MRU4 = new MENU(this.FILE)
+   with (this.FILE.MRU4)
+      onClick = class::MRU4_ONCLICK
+      text = "4."
+   endwith
+
+   this.FILE.MRU5 = new MENU(this.FILE)
+   with (this.FILE.MRU5)
+      onClick = class::MRU5_ONCLICK
+      text = "5."
+   endwith
+
+   this.FILE.MENU176 = new MENU(this.FILE)
+   with (this.FILE.MENU176)
+      text = ""
+      separator = true
+   endwith
+
+   this.FILE.CLOSE = new MENU(this.FILE)
+   with (this.FILE.CLOSE)
+      onClick = class::CLOSE_ONCLICK
+      text = "&Close"
+   endwith
+
+   this.EDITMENU = new MENU(this)
+   with (this.EDITMENU)
+      text = "&Edit"
+   endwith
+
+   this.EDITMENU.COPYOPTION = new MENU(this.EDITMENU)
+   with (this.EDITMENU.COPYOPTION)
+      text = "&Copy"
+      shortCut = "Ctrl+C"
+      statusMessage = "Copy current selection"
+   endwith
+
+   this.EDITMENU.CUTOPTION = new MENU(this.EDITMENU)
+   with (this.EDITMENU.CUTOPTION)
+      text = "Cu&t"
+      shortCut = "Ctrl+X"
+      statusMessage = "Remove current selection"
+   endwith
+
+   this.EDITMENU.PASTEOPTION = new MENU(this.EDITMENU)
+   with (this.EDITMENU.PASTEOPTION)
+      text = "&Paste"
+      shortCut = "Ctrl+V"
+      statusMessage = "Paste clipboard contents"
+   endwith
+
+   this.VIEW = new MENU(this)
+   with (this.VIEW)
+      text = "&View"
+   endwith
+
+   this.VIEW.CHANGEFOLDER = new MENU(this.VIEW)
+   with (this.VIEW.CHANGEFOLDER)
+      onClick = class::CHANGEFOLDER_ONCLICK
+      text = "Change Current &Folder"
+   endwith
+
+   this.VIEW.RESTOREORIGINALSIZE = new MENU(this.VIEW)
+   with (this.VIEW.RESTOREORIGINALSIZE)
+      onClick = class::RESTOREORIGINALSIZE_ONCLICK
+      text = "Restore &Original Size"
+   endwith
+
+   this.PROJECT = new MENU(this)
+   with (this.PROJECT)
+      text = "&Project"
+   endwith
+
+   this.PROJECT.ADDFILES = new MENU(this.PROJECT)
+   with (this.PROJECT.ADDFILES)
+      onClick = class::ADDFILES_ONCLICK
+      text = "&Add Files to Project..."
+   endwith
+
+   this.PROJECT.REMOVEFILES = new MENU(this.PROJECT)
+   with (this.PROJECT.REMOVEFILES)
+      onClick = class::REMOVEFILES_ONCLICK
+      text = "&Remove File from Project"
+   endwith
+
+   this.BUILD = new MENU(this)
+   with (this.BUILD)
+      text = "&Build"
+   endwith
+
+   this.BUILD.COMPILE = new MENU(this.BUILD)
+   with (this.BUILD.COMPILE)
+      onClick = {;form.compileProg()}
+      text = "&Compile"
+   endwith
+
+   this.BUILD.COMPILEALL = new MENU(this.BUILD)
+   with (this.BUILD.COMPILEALL)
+      onClick = {;form.compileAll()}
+      text = "Com&pile All"
+      shortCut = "Ctrl+F9"
+   endwith
+
+   this.BUILD.BUILD = new MENU(this.BUILD)
+   with (this.BUILD.BUILD)
+      onClick = class::BUILD_ONCLICK
+      text = "B&uild"
+   endwith
+
+   this.BUILD.REBUILD = new MENU(this.BUILD)
+   with (this.BUILD.REBUILD)
+      onClick = class::REBUILD_ONCLICK
+      text = "Rebuild &All"
+      shortCut = "Ctrl+F8"
+   endwith
+
+   this.BUILD.SEPARATOR1 = new MENU(this.BUILD)
+   with (this.BUILD.SEPARATOR1)
+      text = ""
+      separator = true
+   endwith
+
+   this.BUILD.RUNPROG = new MENU(this.BUILD)
+   with (this.BUILD.RUNPROG)
+      onClick = class::RUNPROG_ONCLICK
+      text = "&Run"
+      shortCut = "F8"
+   endwith
+
+   this.BUILD.EXECUTE = new MENU(this.BUILD)
+   with (this.BUILD.EXECUTE)
+      onClick = class::EXECUTE_ONCLICK
+      text = "E&xecute"
+      shortCut = "F9"
+   endwith
+
+   this.BUILD.MENU196 = new MENU(this.BUILD)
+   with (this.BUILD.MENU196)
+      text = ""
+      separator = true
+   endwith
+
+   this.BUILD.DEBUG = new MENU(this.BUILD)
+   with (this.BUILD.DEBUG)
+      onClick = class::DEBUG_ONCLICK
+      text = "&Debug"
+   endwith
+
+   this.BUILD.SEPARATOR3 = new MENU(this.BUILD)
+   with (this.BUILD.SEPARATOR3)
+      text = ""
+      separator = true
+   endwith
+
+   this.BUILD.DEPLOY = new MENU(this.BUILD)
+   with (this.BUILD.DEPLOY)
+      onClick = class::DEPLOY_ONCLICK
+      text = "Generate &Install Script"
+      enabled = false
+   endwith
+
+   this.BUILD.INSTALL = new MENU(this.BUILD)
+   with (this.BUILD.INSTALL)
+      onClick = class::INSTALL_ONCLICK
+      text = "&Generate Install Program"
+      enabled = false
+   endwith
+
+   this.BUILD.SEPERATOR4 = new MENU(this.BUILD)
+   with (this.BUILD.SEPERATOR4)
+      text = ""
+      separator = true
+   endwith
+
+   this.BUILD.COMPANDRUN = new MENU(this.BUILD)
+   with (this.BUILD.COMPANDRUN)
+      onClick = class::COMPANDRUN_ONCLICK
+      text = "Compile &script and execute"
+      enabled = false
+   endwith
+
+   this.PROPERTIES = new MENU(this)
+   with (this.PROPERTIES)
+      text = "&Properties"
+   endwith
+
+   this.PROPERTIES.DESKTOPPROPERTIES = new MENU(this.PROPERTIES)
+   with (this.PROPERTIES.DESKTOPPROPERTIES)
+      onClick = {; SET}
+      text = "Desktop Properties"
+   endwith
+
+   this.PROPERTIES.SEPARATOR1 = new MENU(this.PROPERTIES)
+   with (this.PROPERTIES.SEPARATOR1)
+      text = ""
+      separator = true
+   endwith
+
+   this.PROPERTIES.PROJMANPROPERTIES = new MENU(this.PROPERTIES)
+   with (this.PROPERTIES.PROJMANPROPERTIES)
+      onClick = class::PROJMANPROPERTIES_ONCLICK
+      text = "Project Explorer Properties"
+   endwith
+
+   this.WINDOW = new MENU(this)
+   with (this.WINDOW)
+      text = "&Window"
+      statusMessage = "Select active Window"
+   endwith
+
+   this.WINDOW.CASCADE = new MENU(this.WINDOW)
+   with (this.WINDOW.CASCADE)
+      onClick = {; form.doMenuOption(0xE132)}
+      text = "&Cascade"
+      statusMessage = "Layer the open windows so that the title bar of each is visible"
+   endwith
+
+   this.WINDOW.TILE_HORIZONTALLY = new MENU(this.WINDOW)
+   with (this.WINDOW.TILE_HORIZONTALLY)
+      onClick = {; form.doMenuOption(0xE133)}
+      text = "&Tile Horizontally"
+      statusMessage = "Arrange the open windows so widths are greater than heights"
+   endwith
+
+   this.WINDOW.TILE_VERTICALLY = new MENU(this.WINDOW)
+   with (this.WINDOW.TILE_VERTICALLY)
+      onClick = {; form.doMenuOption(0xE134)}
+      text = "Tile &Vertically"
+      statusMessage = "Arrange the open windows so heights are greater than widths"
+   endwith
+
+   this.WINDOW.ARRANGE_ICONS = new MENU(this.WINDOW)
+   with (this.WINDOW.ARRANGE_ICONS)
+      onClick = {; form.doMenuOption(0xE131)}
+      text = "&Arrange Icons"
+      statusMessage = "Arrange the minimized window icons evenly"
+   endwith
+
+   this.WINDOW.SEPARATOR1 = new MENU(this.WINDOW)
+   with (this.WINDOW.SEPARATOR1)
+      text = ""
+      separator = true
+   endwith
+
+   this.WINDOW.CLOSE_ALL = new MENU(this.WINDOW)
+   with (this.WINDOW.CLOSE_ALL)
+      onClick = {; form.doMenuOption(0x08CF)}
+      text = "Close &All"
+      statusMessage = "Close all open windows"
+   endwith
+
+   this.MENU44 = new MENU(this)
+   with (this.MENU44)
+      text = "&Help"
+   endwith
+
+   this.MENU44.HELPCONTENTS = new MENU(this.MENU44)
+   with (this.MENU44.HELPCONTENTS)
+      onClick = class::HELPCONTENTS_ONCLICK
+      text = "&Contents and Index"
+      shortCut = "F1"
+   endwith
+
+   this.MENU44.MENU101 = new MENU(this.MENU44)
+   with (this.MENU44.MENU101)
+      text = ""
+      separator = true
+   endwith
+
+   this.MENU44.ABOUT = new MENU(this.MENU44)
+   with (this.MENU44.ABOUT)
+      onClick = {;form.About()}
+      text = "&About Project Explorer"
+   endwith
+
+   this.windowMenu = this.window
+   this.editCutMenu = this.editmenu.cutoption
+   this.editCopyMenu = this.editmenu.copyoption
+   this.editPasteMenu = this.editmenu.pasteoption
+
+   function CHANGEFOLDER_onClick
+      cFolder = getDirectory()
+
+      if not empty(cFolder)
+         Try
+            if not '"' $ cFolder
+               cFolder = '"'+ltrim(trim(cFolder))+'"'
+            endif
+            set directory to &cFolder.
+
+         catch(exception e)
+
+            msgbox(e.message,'Cannot Change Folder',16)
+            return false
+
+         endTry
+      endif
+      return true
+
+   function DEBUG_onClick
+      form.debug()
+      return
+
+   function DEPLOY_onClick
+      form.deploy()
+      return
+
+   function INSTALL_onClick
+      form.install()
+      return
+
+   function EXECUTE_onClick
+      form.execute()
+      return
+
+   function HELPCONTENTS_onClick
+
+//      if not file(_app.sourceAliases["ProjExp"]+'\pExplorer.hlp')
+//         form.qLang.iMsgBox('Check Gold Site for updated help file.','No Help File',16)
+//         return false
+//      endif
+//
+//      set help to (_app.sourceAliases["ProjExp"]+'\PExplorer.hlp')
+//      Help
+
+      // QAID: 5093  - M.Kay, dBI Inc. - 11/21/2004
+      private m_helpFile, m_helpID
+
+
+      // QAID: 6020 - M.Kay, dBI Inc. - 09/09/2009
+//      //m_helpFile = _app.sourceAliases["ProjExp"]+'\pExplorer.hlp'
+//      //m_helpID = ""
+//      cBuild = SUBSTR(version(0),AT(" b",version(0))+2,4)  //get version number only
+//      if cBuild>2123    //KK 01/06/2010 - added to make sure only .htm files are used in older builds
+//         m_helpFile = _dbwinhome+"\HELP\PLUS_EN8.chm"
+//         
+//         if not file( m_helpFile )
+//            m_helpFile = _dbwinhome+"HELP\PLUS9_EN.chm"
+//
+//            //m_helpID = "#2005"
+//            //m_helpID = "Project Explorer,Overview"
+//            if not file( m_helpFile )
+//               //form.qLang.iMsgBox('Check Gold Site for updated help file.','No Help File',16)
+//               form.qLang.iMsgBox('Cannot find help file.'+m_helpFile,'No Help File',16)
+//               return false
+//            endif
+//         endif
+//      else
+//         m_helpFile = _dbwinhome+"HELP\PLUS9_EN.chm"
+//      endif
+
+      // Project Explorer now uses the default help file for the dBASE IDE
+      m_helpFile = setto("help")
+
+      if not "PLUS10_EN.CHM"$upper(m_helpFile)
+         // default help file is not the dBASE 8 help file
+         // so try to find it help file
+         m_helpFile = _dbwinhome+"HELP\PLUS10_EN.chm"
+         
+         if not file( m_helpFile )
+            form.qLang.iMsgBox('Cannot find help file.'+m_helpFile,'No Help File',16)
+            return false
+         endif
+      endif
+
+
+      m_helpID = "Project Explorer"
+      set help to ( m_helpFile )
+
+      if empty( m_helpID )
+         Help
+      else
+         Help &m_helpID.
+      endif
+
+      set help to  // reset to default help file
+      // End QAID: 5093
+
+      return
+
+   function saveproject_onClick
+      form.saveProject(false)
+      return
+
+   function saveprojas_onClick
+      form.saveProject(true)
+      return
+
+   function close_onClick
+      form.close()
+      return
+
+   function COMPANDRUN_onClick
+      form.install('CompAndRun')
+      return
+
+   function newfile_onClick
+      form.newProject()
+      return
+
+   function setcustom_onClick
+      form.setCustom()
+      return
+
+   function build_onClick
+      form.buildExe()
+      return
+
+   function rebuild_onClick
+      form.rebuildAll()
+      return
+
+   function addfiles_onClick
+      form.addFiles()
+      return
+
+   function removefiles_onClick
+      form.removeFiles()
+      return
+
+   function openfile_onClick
+      form.openProject()
+      return
+
+   function RUNPROG_onClick
+      form.runProg()
+      return
+
+   function projManProperties_onClick
+      form.setProperties()
+      return
+
+   // called from the projects form to rebuild the menus
+   //  QAID: 6409 - Added checks for Personal dBASE - M.Kay - 04/09/2008
+   function ROOT_onInitMenu
+      local lPersonal
+
+//? "In ROOT_onInitMenu()"
+      lPersonal = "PERSONAL"$upper(version())
+
+      this.file.MRU1.enabled = len(trim(substr(this.file.MRU1.text,4))) >0
+      this.file.MRU2.enabled = len(trim(substr(this.file.MRU2.text,4))) >0
+      this.file.MRU3.enabled = len(trim(substr(this.file.MRU3.text,4))) >0
+      this.file.MRU4.enabled = len(trim(substr(this.file.MRU4.text,4))) >0
+      this.file.MRU5.enabled = len(trim(substr(this.file.MRU5.text,4))) >0
+
+      local currentFileObject, cFile, cExe, cMain
+
+      cMain = form.Project.getShortName(form.project.MainFilename)
+      cExe = form.Project.getShortName(form.Project.ExeName)
+//? "   Main File: ", cMain
+//? "   EXE Name:  ", cExe
+
+//? [   type('form.treeview1.selected')], type('form.treeview1.selected')
+//if type('form.treeview1.selected') = 'O'
+   //? [   form.treeview1.selected.typ], form.treeview1.selected.typ
+   //? [   form.treeview1.selected.typ <> "H"], form.treeview1.selected.typ <> "H"
+//endif
+
+      if type('form.treeview1.selected') = 'O' and ;
+         form.treeview1.selected.typ <> "H"
+         CurrentFileObject = form.project.Contents[form.treeview1.selected.ContentsNo]
+         cFile = CurrentFileObject.FileName
+//? "   CurrentFileObject exists for: ", cFile
+      else
+         CurrentFileObject = null
+//? "   CurrentFileObject is null"
+         cFile = ""
+      endif
+
+      if not empty( CurrentFileObject )
+
+         this.file.compile.text = form.qLang.iGetText("&Compile")+" " + CurrentFileObject.shortName
+         this.file.compile.enabled = CurrentFileObject.canBeCompiled
+
+         this.build.compile.text = form.qLang.iGetText("&Compile")+" " + CurrentFileObject.shortName
+         this.build.compile.enabled = CurrentFileObject.canBeCompiled
+
+         this.file.run.enabled     = not empty(CurrentFileObject.runWith) and CurrentFileObject.runWith <> "-"
+         this.file.run.text        = form.qLang.iGetText("&Run")+" " + CurrentFileObject.shortName
+
+         this.file.openindesigner.enabled = not empty(CurrentFileObject.designer)
+
+         this.file.openinsourceeditor.enabled = CurrentFileObject.canBeEdited
+
+         //this.file.debug.text        = "Debug " + CurrentFileObject.shortName
+         //this.file.debug.enabled = not empty(CurrentFileObject.runWith) and (CurrentFileObject.runWith <> "-" and CurrentFileObject.runWith <> "ex")
+
+
+      else
+         this.file.compile.text = form.qLang.iGetText("&Compile")
+         this.file.compile.enabled = false
+
+         this.build.compile.text = form.qLang.iGetText("&Compile")
+         this.build.compile.enabled = false
+
+         this.file.run.text        = form.qLang.iGetText("&Run")
+         this.file.run.enabled = false
+
+         this.file.openindesigner.enabled = false
+
+         this.file.openinsourceeditor.enabled = false
+         //this.file.debug.text        = "Debug"
+         //this.file.debug.enabled = false
+      endif
+
+      this.build.compandrun.text = form.qLang.iGetText("Compile &script and execute")
+         
+
+      if not lPersonal
+         this.BUILD.DEPLOY.enabled = form.notebook1.innonotebook.I_SCRIPTGENERATE.enabled
+         this.BUILD.INSTALL.enabled = form.notebook1.innonotebook.I_SCRIPTCALLSM.enabled
+      else
+         this.BUILD.DEPLOY.enabled = false
+         this.BUILD.INSTALL.enabled = false
+      endif
+
+      //J.Kwekkeboom changed for ISG 01/15/2007
+      //Added for ISG compile hidden and run created Setup.exe
+      this.build.CompAndRun.enabled = form.notebook1.innonotebook.I_SCRIPTCALLSM.enabled
+
+      // M.Kay - TEST - 07/16/2013
+      this.build.compileAll.enabled = form.project.areAnyToCompile()
+      //this.build.compileAll.enabled = true
+//? "   Build | Compile All Enabled =", this.build.compileAll.enabled
+
+      if lPersonal
+         this.build.rebuild.enabled := false
+      else
+         this.build.rebuild.enabled = this.build.compileAll.enabled
+      endif
+
+      this.build.build.text := form.qLang.iGetText("Build")+" "+cExe
+
+      if lPersonal
+         this.build.build.enabled := false
+      else
+         this.build.build.enabled = this.build.rebuild.enabled
+      endif
+
+      this.build.execute.text = form.qLang.iGetText("E&xecute")+" "+cExe
+
+      if lPersonal
+         this.build.execute.enabled := false
+      else
+         this.build.execute.enabled = this.build.rebuild.enabled
+      endif
+
+      this.build.runProg.text = form.qLang.iGetText("&Run")+" "+cMain
+      this.build.runProg.enabled = not empty(cMain)
+      this.build.debug.text = form.qLang.iGetText("&Debug")+" "+cMain
+      this.build.debug.enabled = not empty(cMain)
+      this.VIEW.RESTOREORIGINALSIZE.enabled := (form.windowstate = 0)
+
+      //J.Kwekkeboom 11/14/2005 - Changed for correct text and enabled
+      this.Build.Deploy.text:=form.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTGENERATE.speedtip
+      this.Build.Install.text:=form.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTCALLSM.speedtip
+
+      if lPersonal
+         this.build.Install.enabled := false
+         this.BUILD.DEPLOY.enabled  := false
+      else
+         this.build.Install.enabled:=form.ScriptIsGenerate
+      endif
+      return
+
+   function MRU1_onClick
+      form.openProject(form.aMRU[1],4)
+      return
+
+   function MRU2_onClick
+      form.openProject(form.aMRU[2],4)
+      return
+
+   function MRU3_onClick
+      form.openProject(form.aMRU[3],4)
+      return
+
+   function MRU4_onClick
+      form.openProject(form.aMRU[4],4)
+      return
+
+   function MRU5_onClick
+      form.openProject(form.aMRU[5],4)
+      return
+
+   function RESTOREORIGINALSIZE_onClick
+      form.qvsplitter1.left := SPLITTER_ORG_POS
+      form.onSize(0,MIN_WIDTH,MIN_HEIGHT)
+      return
+
+           // -------------------- method: saveMRUItem(cItem) -------------------------//
+   // Purpose: pokes an item into the MRU list
+   // Parameters: cItem - a string containing the new MRU item
+   function saveMRUItem(cItem)
+      if type('form.aMRU') # 'A'
+         this.getMRUList()
+      endif
+      private aList,nPosition
+
+      // Load the MRU List from dQuery.ini into an array
+
+      // If the new MRU item doesn't match the latest MRU item
+      if not upper(cItem) == upper(form.aMRU[1])
+
+         // if it's already in the list
+         // remove it!
+         // Get position for current item, mixed case
+         nPosition = form.aMRU.scan(cItem)
+         if nPosition > 0
+            // if there's a match, delete it
+            form.aMRU.delete(nPosition)
+         else
+            // If there's no match, see if there's a
+            // match for UPPER()
+            nPosition = form.aMRU.scan(upper(cItem))
+            if nPosition > 0
+               form.aMRU.delete(nPosition)
+            endif
+         endif
+
+
+         // Insert a new element to the beginning of the array
+         form.aMRU.insert(1)
+
+         // Set the first item to the new MRU item
+         form.aMRU[1] = cItem
+
+
+         // Update MRU Menu items
+         class::UpdateMRUMenus()
+
+      endif
+
+      return true
+
+   // -------------------- method: updateMRUMenus -------------------------//
+   // Purpose: Updates the MRU menu options with the current values from dQuery.ini
+    function updateMRUMenus
+      private i,cNewMenu
+
+      for i = 1 to 5
+
+         // create string to reference menu option
+         cNewMenu = "this.FILE.MRU"+i
+
+         // If the path is greater than 30 characters, show beginning of path,
+         // three dots, and the file name
+         if rat("\",form.aMRU[i]) > 30
+
+            cFront = left(form.aMRU[i],30)
+            cBack = substr(form.aMRU[i],rat("\",form.aMRU[i])+1)
+            cText = i+". "+cFront+"..."+cBack
+
+         else
+
+            cText = i+". "+form.aMRU[i]
+
+         endif
+
+         // Set menu text
+         &cNewMenu..Text = cText
+
+      endFor
+
+
+      return true
+
+      //--------------------------- ClearMenu --------------------------\
+      // Purpose: disables build options when "New" button or File/New
+      //  are clicked
+      function clearMenu
+         with (this.build)
+             build.enabled = false
+         endwith
+      return
+
+endclass
+

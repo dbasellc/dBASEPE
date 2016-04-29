@@ -1,0 +1,299 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 04/11/2004
+//
+parameter formObj, popupName
+new PBUILDERPLUSPOPUP(formObj, popupName)
+
+class PBUILDERPLUSPOPUP(formObj, popupName) of POPUP(formObj, popupName)
+   with (this)
+      onInitMenu = class::ROOT_ONINITMENU
+      alignment = 1	// Align Left
+   endwith
+
+   this.COMPILE = new MENU(this)
+   with (this.COMPILE)
+      onClick = class::COMPILE_ONCLICK
+      text = "&Compile"
+   endwith
+
+   this.RUN = new MENU(this)
+   with (this.RUN)
+      onClick = class::RUN_ONCLICK
+      text = "&Run"
+      shortCut = "F8"
+   endwith
+
+   this.DESIGNER = new MENU(this)
+   with (this.DESIGNER)
+      onClick = class::DESIGNER_ONCLICK
+      text = "Open in Desi&gner"
+      shortCut = "Shift+F2"
+   endwith
+
+   this.SOURCEEDIT = new MENU(this)
+   with (this.SOURCEEDIT)
+      onClick = class::SOURCEEDIT_ONCLICK
+      text = "Open in &Source Editor"
+   endwith
+
+   this.SEPARATOR2 = new MENU(this)
+   with (this.SEPARATOR2)
+      text = ""
+      separator = true
+   endwith
+
+   this.NEW = new MENU(this)
+   with (this.NEW)
+      text = "&New"
+   endwith
+
+   this.NEW.NEWFORM = new MENU(this.NEW)
+   with (this.NEW.NEWFORM)
+      onClick = class::NEWFORM_ONCLICK
+      text = "Form"
+   endwith
+
+   this.NEW.NEWCUSTOMFORM = new MENU(this.NEW)
+   with (this.NEW.NEWCUSTOMFORM)
+      onClick = class::NEWCUSTOMFORM_ONCLICK
+      text = "Custom Form"
+   endwith
+
+   this.NEW.NEWPROGRAM = new MENU(this.NEW)
+   with (this.NEW.NEWPROGRAM)
+      onClick = class::NEWPROGRAM_ONCLICK
+      text = "Program"
+   endwith
+
+   this.NEW.NEWDATAMODULE = new MENU(this.NEW)
+   with (this.NEW.NEWDATAMODULE)
+      onClick = class::NEWDATAMODULE_ONCLICK
+      text = "Datamodule"
+   endwith
+
+   this.NEW.NEWCUSTOMDATAMODULE = new MENU(this.NEW)
+   with (this.NEW.NEWCUSTOMDATAMODULE)
+      onClick = class::NEWCUSTOMDATAMODULE_ONCLICK
+      text = "Custom Datamodule"
+   endwith
+
+   this.NEW.NEWREPORT = new MENU(this.NEW)
+   with (this.NEW.NEWREPORT)
+      onClick = class::NEWREPORT_ONCLICK
+      text = "Report"
+   endwith
+
+   this.NEW.NEWCUSTOMREPORT = new MENU(this.NEW)
+   with (this.NEW.NEWCUSTOMREPORT)
+      onClick = class::NEWCUSTOMREPORT_ONCLICK
+      text = "Custom Report"
+   endwith
+
+   this.NEW.NEWLABEL = new MENU(this.NEW)
+   with (this.NEW.NEWLABEL)
+      onClick = class::NEWLABEL_ONCLICK
+      text = "Label"
+   endwith
+
+   this.NEW.NEWSQL = new MENU(this.NEW)
+   with (this.NEW.NEWSQL)
+      onClick = class::NEWSQL_ONCLICK
+      text = "SQL"
+   endwith
+
+   this.NEW.NEWLOCALTABLE = new MENU(this.NEW)
+   with (this.NEW.NEWLOCALTABLE)
+      onClick = class::NEWLOCALTABLE_ONCLICK
+      text = "Local Table"
+   endwith
+
+   this.ADDFILES = new MENU(this)
+   with (this.ADDFILES)
+      onClick = class::ADDFILES_ONCLICK
+      text = "&Add files to Project"
+   endwith
+
+   this.REMOVE = new MENU(this)
+   with (this.REMOVE)
+      onClick = class::REMOVE_ONCLICK
+      text = "Re&move File from Project"
+   endwith
+
+   this.SEPARATOR3 = new MENU(this)
+   with (this.SEPARATOR3)
+      text = ""
+      separator = true
+   endwith
+
+   this.SETMAIN = new MENU(this)
+   with (this.SETMAIN)
+      onClick = class::SETMAIN_ONCLICK
+      text = "Set as &Main"
+   endwith
+
+   this.INCLUDE = new MENU(this)
+   with (this.INCLUDE)
+      onClick = class::INCLUDE_ONCLICK
+      text = "Include in &Target Executable"
+   endwith
+
+
+   function ADDFILES_onClick
+      this.parent.parent.addFiles()
+      return
+
+   function COMPILE_onClick
+      this.parent.parent.compileProg()
+      return
+
+   function DESIGNER_onClick
+      this.parent.parent.designProg()
+      return
+
+   function EXCLUDE_onClick
+      if this.parent.parent.notebook1.fileNotebook.fileExcluded.enabled
+         this.parent.parent.notebook1.fileNotebook.FileExcluded.value = ;
+           not this.parent.parent.notebook1.fileNotebook.FileExcluded.value 
+         this.parent.parent.fileExcluded_onChange()
+      endif
+      return
+
+   function INCLUDE_onClick
+      if this.parent.parent.notebook1.fileNotebook.fileIncluded.enabled
+         this.parent.parent.notebook1.fileNotebook.FileIncluded.value = ;
+           not this.parent.parent.notebook1.fileNotebook.FileIncluded.value 
+         this.parent.parent.fileIncluded_onChange()
+      endif
+      return
+
+   function NEWCUSTOMDATAMODULE_onClick
+      Create Datamodule Custom
+      return
+
+   function NEWCUSTOMFORM_onClick
+      Create form custom
+      return
+
+   function NEWCUSTOMREPORT_onClick
+      Create Report Custom
+      return
+
+   function NEWDATAMODULE_onClick
+      Create Datamodule
+      return
+
+   function NEWFORM_onClick
+      Create form
+      return
+
+   function NEWLABEL_onClick
+      Create Label
+      return
+
+   function NEWLOCALTABLE_onClick
+      Create
+      return
+
+   function NEWPROGRAM_onClick
+      Create Command
+      return
+
+   function NEWREPORT_onClick
+      Create Report
+      return
+
+   function NEWSQL_onClick
+      Create Query
+      return
+
+   function REMOVE_onClick
+      this.parent.parent.removeFiles()
+      return
+
+   function ROOT_onInitMenu
+
+      local oCurrent, lPersonal
+      oCurrent = this.form.currentFileObject
+
+      // QAID: 6409 - M.Kay, dBI Inc. - 04/08/2008
+      // Disable certain options for personal dbase
+      lPersonal = "PERSONAL"$upper(version())
+   
+      // the user clicked on a heading line
+      this.run.enabled = false
+      this.run.text = this.form.qLang.iGetText("&Run")
+      this.compile.enabled = false
+      this.compile.text = this.form.qLang.iGetText("&Compile")
+      this.designer.enabled = false
+      this.sourceEdit.enabled = false
+      this.remove.text = this.form.qLang.iGetText("Re&move")
+      this.remove.enabled = false
+      this.include.enabled = false
+      this.include.checked = false
+      this.setMain.enabled = false
+      this.setMain.checked = false
+     
+      if not empty(oCurrent)
+         this.run.enabled     = not empty(oCurrent.runWith) and oCurrent.runWith <> "-"
+         this.run.text        = this.form.qLang.iGetText("&Run")+" " + oCurrent.shortName
+
+         this.compile.text    = this.form.qLang.iGetText("&Compile")+" " + oCurrent.shortName
+         this.compile.enabled = oCurrent.canBeCompiled
+
+         this.designer.enabled = not empty(oCurrent.designer)
+         this.sourceEdit.enabled = oCurrent.canBeEdited
+         this.remove.text = this.form.qLang.iGetText("Re&move")+" " + oCurrent.shortName
+         this.remove.enabled = true
+
+         if not lPersonal
+            this.include.enabled = oCurrent.canBeIncluded
+            this.include.checked = oCurrent.canBeIncluded and oCurrent.Included
+         endif
+
+         this.setMain.enabled = oCurrent.canBeMain
+         this.setMain.checked = oCurrent.canBeMain and oCurrent.isMain      
+      endif
+      if _app.Language#"EN"
+         //already in english
+         if this.AddFiles.text#this.form.qLang.iGetText("&Add files to Project")
+            class::SetLanguage()
+         endif
+      endif
+      return
+
+   function SetLanguage
+      with this
+        AddFiles.text:=form.qLang.iGetText("&Add files to Project")
+        //J.Kwekkeboom 11/14/2005 
+        //Removed so already text defined in ROOT_onInitMenu 
+        //and here *NOT* overwrite again exists text with perhaps filename included
+        //Compile.text:=form.qLang.iGetText("&Compile")
+        Designer.text:=form.qLang.iGetText("Open in Desi&gner")
+        Include.text:=form.qLang.iGetText("Include in &Target Executable")
+        New.text:=form.qLang.iGetText("&New")
+        Remove.text:=form.qLang.iGetText("Re&move File from Project")
+        SetMain.text:=form.qLang.iGetText("Set as &Main")
+        SourceEdit.text:=form.qLang.iGetText("Open in &Source Editor")
+      endwith
+      this.Run.text:=form.qLang.iGetText("&Run")
+   return
+
+   function RUN_onClick
+      this.parent.parent.runFile()
+      return
+
+   function SETMAIN_onClick
+      this.parent.parent.ToggleMain()
+      return
+
+   function setProperties(oCurrent)
+      // called from the projects form to rebuild the menus
+      // oCurrent is the current project contents object
+ 
+      return
+
+   function SOURCEEDIT_onClick
+      this.parent.parent.editProg()
+      return
+endclass
