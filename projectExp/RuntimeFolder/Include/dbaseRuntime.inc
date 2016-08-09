@@ -58,33 +58,36 @@
 [Files]  
   #if 'true' == dBPlus 
       #if 'false' == dBSeparat
-         #ifdef dBaseEngineName
-Source: {#dBaseEngineName}; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-         #else
-            #define dbPlusName "dBasePlusRuntimeEngine"
-            #if Int(dBaseBuild)>1800
-                #define dbPlusName "PlusRuntime-b"
-            #endif
-            #if POS('.exe',dBaseRuntimeInstDir)
-Source: {#dBaseRuntimeInstDir}; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-            #else
-               #if 'All' == dBASELang
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-               #else
-                  #if Pos('EN',dBASELang)>0
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_en.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-                  #elif Pos('DE',dBASELang)>0
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_de.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-                  #elif Pos('ES',dBASELang)>0
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_es.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-                  #elif Pos('IT',dBASELang)>0
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_it.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-                  #elif Pos('JA',dBASELang)>0
-Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_ja.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
-                  #endif 
-                #endif
-            #endif
-         #endif           
+; ### Changed 03/25/2015 - KK - if dBSeparat is false user is installing using our runtime installer
+;     This is now handled completely differently
+      
+;         #ifdef dBaseEngineName
+;Source: {#dBaseEngineName}; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;         #else
+;            #define dbPlusName "dBasePlusRuntimeEngine"
+;            #if Int(dBaseBuild)>1800
+;                #define dbPlusName "PlusRuntime-b"
+;            #endif
+;            #if POS('.exe',dBaseRuntimeInstDir)
+;Source: {#dBaseRuntimeInstDir}; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;            #else
+;               #if 'All' == dBASELang
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;               #else
+;                  #if Pos('EN',dBASELang)>0
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_en.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;                  #elif Pos('DE',dBASELang)>0
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_de.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;                  #elif Pos('ES',dBASELang)>0
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_es.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;                  #elif Pos('IT',dBASELang)>0
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_it.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;                  #elif Pos('JA',dBASELang)>0
+;Source: {#dBaseRuntimeInstDir}\{#dbPlusName}{#dBaseBuild}_ja.exe; DestName: {#dBDestName}; DestDir: {tmp}; Flags: DontCopy
+;                  #endif 
+;                #endif
+;            #endif
+;         #endif           
       #else
 Source: {#dBaseRuntimeDir}\PLUSrun.exe; DestDir: {reg:HKLM\SOFTWARE\dBASE\PLUS\series10,RuntimePath|{#SepDestDir}}; Flags: IgnoreVersion uninsneveruninstall
          #if 'All' == dBASELang
@@ -483,7 +486,7 @@ begin
 	    Para1:='';
 		Para2:='';
 		Para3:='/S';
-	 end;
+	 end
 	 if StrToInt('{#dBaseRuntimeInstVer}') < 2200 //for release 2.7 and Lower
 	 then
 	 begin
