@@ -27,6 +27,7 @@ You can also change the projExp source alias as a way of using a different direc
 
 If you have a change in a file that you feel is worth us taking a look at for future changes to dBASE Project Explorer you can create a new branch in the github repository and upload the file with your changes. In Github you then issue a 'pull request' which tells us and others about changes you've made.
 (NOTE: You will have to make yourself familiar with github and it's uses.)
+https://help.github.com/articles/creating-a-pull-request/
 
 When we get  a chance we  will look at your submission and test it out to see if the changes are valuable for future customers and does not break any existing  code.
 
