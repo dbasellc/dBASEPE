@@ -7,7 +7,7 @@ In dBASE Plus there is a source alias which points to the folder where dBASE wil
 The source alias is called 'ProjExp' and can be found in the Desktop Properties dialog within dBASE Plus 10.
 
 Here we include all of the files that get installed to the 
-C:\Program Files (x86)\dBASE\Plus10\Bin\dBLCore\ProjExp 
+C:\Program Files (x86)\dBASE\Plus<ver>\Bin\dBLCore\ProjExp 
 directory.
 
 These files include images and dlls and other files along with the dBASE Language files
@@ -21,7 +21,7 @@ See notes in the headers of the projexp.wfm as well as in the headers and code o
 
 After downloading these files you can copy, move modify and do anything you wish with them.
 
-You can compile them and use them in place of the compiled object coded objects in C:\Program Files (x86)\dBASE\Plus10\Bin\dBLCore\ProjExp
+You can compile them and use them in place of the compiled object coded objects in C:\Program Files (x86)\dBASE\Plus<ver>\Bin\dBLCore\ProjExp
 at your own risk.
 You can also change the projExp source alias as a way of using a different directory with your modified and compiled code as well.
 
