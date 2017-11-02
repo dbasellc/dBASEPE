@@ -1,0 +1,25 @@
+UPDATE UAC OPTIONS .... COMBO WITH THREE OPTIONS (ON OFF OR DEFAULT)
+runtimeinbuild
+updated project.cc to include new setting 'runtimeinbuild'
+= 0 means the .exe will be built without the runtime
+= 1 means the .exe will be built with the rumntime 
+
+when = 1
+form.notebook1.innonotebook.rb1 (Include Runtime Engine?) .enabled = false
+form.notebook1.innonotebook.rb2 (Include Runtime Files?) .enabled = false
+form.notebook1.innonotebook.rb3 (Do not include Runtime?) .enabled = false
+
+changed INNO | Runtime manifest to 'Include Manifest File?' (DOESN'T SHOW WHEN RUNNING FORM !!!)
+
+When running existing .prj ... make sure runtime settings are correct (under INNO)
+
+BUILD xxx RTEXE 
+test - languages
+no runtime
+SET UAC OFF
+
+INCLUDE PLUSR_XX.DLL IN INSTALLER.
+- USE POPUP - 
+ADD OPEN FILE DIALOG
+
+

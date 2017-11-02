@@ -57,7 +57,7 @@ set alternate on
 // Make sure distributed version on ProjExp.ini in Not Read-Only
 run attrib -r ProjExp\ProjExp.ini
 
-?"=== Build Results to C:\fvcsprojects\projectmanager\ProjExp Folder ==="
+?"=== Build Results to C:\dBLCore\projectexp\ProjExp Folder ==="
 ?
 //dir "ProjExp\*.*" 
 //?
@@ -96,7 +96,7 @@ class MakeProjExpForm of FORM
       left = 0.0
       top = 0.0
       width = 90.0
-      dataLink = "FILE C:\fvcsprojects\projectmanager\projexp.log"
+      dataLink = "FILE C:\dBLCore\projectexp\projexp.log"
       anchor = 6	// Container
    endwith
 

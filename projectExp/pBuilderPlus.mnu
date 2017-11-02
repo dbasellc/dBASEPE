@@ -459,10 +459,10 @@ class PBUILDERPLUSMENU(formObj, name) of MENUBAR(formObj, name)
       // Project Explorer now uses the default help file for the dBASE IDE
       m_helpFile = setto("help")
 
-      if not "PLUS10_EN.CHM"$upper(m_helpFile)
+      if not "PLUS11_EN.CHM"$upper(m_helpFile)
          // default help file is not the dBASE 8 help file
          // so try to find it help file
-         m_helpFile = _dbwinhome+"HELP\PLUS10_EN.chm"
+         m_helpFile = _dbwinhome+"HELP\PLUS11_EN.chm"
          
          if not file( m_helpFile )
             form.qLang.iMsgBox('Cannot find help file.'+m_helpFile,'No Help File',16)

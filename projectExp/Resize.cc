@@ -406,12 +406,12 @@ class Resize( oForm )
          but_sel_exe.Left:=LogFileName.Left+LogFileName.Width+5         
          BUT_SEL_LOGFILE.left:=but_sel_exe.Left
 
-         LangWidth:=this.GetTransWidth(TEXTLABEL3,0)
+         LangWidth:=this.GetTransWidth(textlabel3,0)  //KK removed 03/22/2017
          LangWidth:=this.GetTransWidth(TEXTLABEL4,LangWidth)
 
          LangWidth+=15
          Store LangWidth to ;
-             TEXTLABEL3.width,TEXTLABEL4.width
+             textlabel3.width,TEXTLABEL4.width
 
          LangWidth+=25
          Store LangWidth to ;
@@ -461,13 +461,13 @@ class Resize( oForm )
          I_NAME_REFRESH.width:=Langwidth+25 
 
          //Default
-         LangWidth:=this.GetTransWidth(TEXTLABEL3,0)
+         LangWidth:=this.GetTransWidth(textlabel3,0) //KK removed 03/22/2017
          LangWidth:=this.GetTransWidth(TEXTLABEL4,LangWidth)
          LangWidth:=this.GetTransWidth(TEXTLABEL7,LangWidth)
          LangWidth:=this.GetTransWidth(TEXTLABEL5,LangWidth)
          LangWidth+=15
          Store LangWidth to ;
-            TEXTLABEL3.width,TEXTLABEL4.width,;
+            textlabel3.width,TEXTLABEL4.width,;
             TEXTLABEL7.width,TEXTLABEL5.width
 
          LangWidth+=15

@@ -207,7 +207,7 @@ class pBuilderTBar of Toolbar
 
       if not file( m_helpFile )
 
-         m_helpFile = _dbwinhome+"\HELP\PLUS10_EN.chm"   
+         m_helpFile = _dbwinhome+"\HELP\PLUS11_EN.chm"   
          //m_helpID = "#2005"
          //m_helpID = "Project Explorer,Overview"
 

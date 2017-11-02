@@ -1664,6 +1664,8 @@ CLASS project(f)
 		else if nBDEOption = 0 
 		   //?"nBDEOption:"+nBDEOption
          cBDEOption = "BDE OFF"
+		else
+         cBDEOption = ""		
 		endif		
 		//?"bde option is ",cBDEOption
       // Issue #1582 - M.Kay, dBase, LLC - 03/30/2015
@@ -2378,7 +2380,7 @@ CLASS project(f)
      // #include <winreg.h>
       set procedure to :coreshared:registry.prg additive      
 
-      REG_KEY="SOFTWARE\dBASE\PLUS\series10"      
+      REG_KEY="SOFTWARE\dBASE\PLUS\series11"      
       reg = new RegistryDb(HKEY_LOCAL_MACHINE, REG_KEY )       
       cValue = reg.queryValue("RuntimePath")
       try

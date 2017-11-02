@@ -53,7 +53,7 @@ return
 
 ** END HEADER -- do not remove this line
 //
-// Generated on 02/04/2016
+// Generated on 03/23/2017
 //
 parameter bModal
 local f
@@ -67,8 +67,8 @@ endif
 
 class projExpForm of FORM
    set procedure to :ProjExp:Project.cc additive persistent
-   set procedure to :CoreShared:CoreFormViewer.CC additive persistent
    set procedure to :CoreShared:coreSplitter.cc additive persistent
+   set procedure to :CoreShared:CoreFormViewer.CC additive persistent
    with (this)
       onGotFocus = class::FORM_ONGOTFOCUS
       onLostFocus = {; this.showFormatBar(false)}
@@ -82,8 +82,8 @@ class projExpForm of FORM
       metric = 6	// Pixels
       persistent = true
       height = 622.0
-      left = 28.0
-      top = 44.0
+      left = 95.0
+      top = 20.0
       width = 1023.0
       text = "Project Explorer"
       menuFile = ":ProjExp:pBuilderPlus.mnu"
@@ -1034,16 +1034,6 @@ class projExpForm of FORM
       pageno = 8
    endwith
 
-   this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL3 = new TEXTLABEL(this.NOTEBOOK1.INNONOTEBOOK)
-   with (this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL3)
-      height = 22.0
-      left = 5.0
-      top = 44.0
-      width = 119.0
-      text = "Installer name:"
-      alignVertical = 1	// Middle
-   endwith
-
    this.NOTEBOOK1.INNONOTEBOOK.I_APPNAME = new ENTRYFIELD(this.NOTEBOOK1.INNONOTEBOOK)
    with (this.NOTEBOOK1.INNONOTEBOOK.I_APPNAME)
       onChange = {;form.project.AppName:=this.value;class::I_UpdateValues()}
@@ -1304,7 +1294,6 @@ class projExpForm of FORM
       id = 113
       fontSize = 9.0
       colorHighLight = "HighLightText/HighLight"
-      multiple = true
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL12 = new TEXTLABEL(this.NOTEBOOK1.INNONOTEBOOK)
@@ -3216,6 +3205,26 @@ class projExpForm of FORM
       pageno = 4
    endwith
 
+   this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL3 = new TEXTLABEL(this.NOTEBOOK1.INNONOTEBOOK)
+   with (this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL3)
+      height = 22.0
+      left = 5.0
+      top = 44.0
+      width = 119.0
+      text = "App name:"
+      alignVertical = 1	// Middle
+   endwith
+
+   this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL32 = new TEXTLABEL(this.NOTEBOOK1.INNONOTEBOOK)
+   with (this.NOTEBOOK1.INNONOTEBOOK.TEXTLABEL32)
+      height = 22.0
+      left = 5.0
+      top = 44.0
+      width = 119.0
+      text = "App name:"
+      alignVertical = 1	// Middle
+   endwith
+
    this.NOTEBOOK1.LOGPROGRESS = new PROGRESS(this.NOTEBOOK1)
    with (this.NOTEBOOK1.LOGPROGRESS)
       visible = false
@@ -3474,6 +3483,7 @@ class projExpForm of FORM
       imageSize = 16
       allowDrop = true
    endwith
+
 
 //   this.TREEVIEW2 = new TREEVIEW(this)
 //   with (this.TREEVIEW2)
@@ -4023,9 +4033,9 @@ class projExpForm of FORM
       class::freeze()
       form.project.NeedDirs.add(form.notebook1.innonotebook.I_DIRSUBFOLDER1.value+form.notebook1.innonotebook.I_DIRSUBFOLDER2.value)
       //J.Kwekkeboom 03/09/2007 Added for Listbox Repaint error (!!)
-      form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.dataSource := NULL
+      form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.dataSource := NULL 
       form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.datasource:="array form.project.NeedDirs"
-      form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.cursel:=form.project.NeedDirs.size
+      form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.cursel:=form.project.NeedDirs.size 
       //D.Brooks 11/10/2004 - Enable the delete button if something is added.
       form.notebook1.innonotebook.I_DIRSUBFOLDER_DEL.enabled:=form.project.NeedDirs.size>0
       class::Unfreeze()
@@ -4034,26 +4044,33 @@ class projExpForm of FORM
    function I_DirSubFolder_Del_onClick
    local aArr
       try
-        aArr = form.NOTEBOOK1.INNONOTEBOOK.I_DIRSUBFOLDER_LBOX.selected()
+		//KK 03/22/2017 - changing to CurSel as had to set this listbox as multiSelect = false
+		//had painting issues with multiSelect = true
+      //  aArr = form.NOTEBOOK1.INNONOTEBOOK.I_DIRSUBFOLDER_LBOX.selected()
+		nSelected  = form.NOTEBOOK1.INNONOTEBOOK.I_DIRSUBFOLDER_LBOX.curSel
       catch(exception e)
         //not items in there...
         return
       endtry
-      if aArr.size>1
+      //if aArr.size>1 //KK not using see above
+		/*
          if form.qLang.iMsgBox("Do you want remove the %1 items?","Remove",36,""+aArr.size)#6
             return
          endif
-      else
-         if form.qLang.iMsgBox("Do you want remove this %1 item?","Remove",36,""+aArr.size)#6
+		*/
+      //else
+         if form.qLang.iMsgBox("Do you want remove this %1 item?","Remove",36,""+nSelected)#6
             return
          endif
-      endif
+      //endif
       Local i,x,z,cSeek,nCount
       nCount=0
       z=0
-      for i=1 to aArr.size
+     // for i=1 to aArr.size
           for x=1 to form.project.NeedDirs.size
-             if aArr[i]==form.project.NeedDirs[x]
+			    //KK change from Arr[i]==form.project.NeedDirs[x]
+				 // to form.notebook1.innonotebook.I_DirSubFolder_LBOX.value==form.project.NeedDirs[x]
+             if form.notebook1.innonotebook.I_DirSubFolder_LBOX.value==form.project.NeedDirs[x]
                 if z=0
                    z=x-1
                 endif
@@ -4062,7 +4079,7 @@ class projExpForm of FORM
                 exit
              endif
           next
-      next
+      //next
       if nCount>0
          nCount=form.project.NeedDirs.size-nCount
          //D.Brooks 11/10/2004 - resize() cannot have 0 as first parameter.
@@ -4076,7 +4093,7 @@ class projExpForm of FORM
 //         form.project.modified:=true
 //         form.ScriptIsGenerate:=false
          //J.Kwekkeboom 03/09/2007 Added for Listbox Repaint error (!!)
-         form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.dataSource := NULL
+         form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.dataSource := ""
          form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.dataSource:="Array form.project.NeedDirs"
          if Z>0
             form.notebook1.innonotebook.I_DIRSUBFOLDER_LBOX.cursel=z
@@ -5153,13 +5170,13 @@ class projExpForm of FORM
 
    function I_File_Add_onClick
    local a,cFile
-      cFile="*"
+      cFile="*.*"
       cDestDir=form.notebook1.innonotebook.I_FILESSUBFOLDER.value
       if empty(cDestDir)
          cDestDir:="{app}"
       endif
       a = new array()
-      a.getFile(cFile,form.qLang.iGetText("Add Files")+" >> "+cDestDir,true,"*")
+      a.getFile(cFile,form.qLang.iGetText("Add Files")+" >> "+cDestDir,true,"*.*")
       if a.size=0
         return
       endif
@@ -5674,6 +5691,7 @@ class projExpForm of FORM
            h1.puts("AppCopyright={#AppCopyright}")
            h1.puts("DefaultDirName="+form.project.DestFolder)
            h1.puts("DefaultGroupName={#AppName}")
+			  h1.puts("OutputBaseFilename="+form.project.AppName+"_Installer") //KK added 03/22/2017
            h1.puts("PrivilegesRequired=admin")
            h1.puts("ShowLanguageDialog=false")
            h1.puts("VersionInfoVersion={#AppVersion}")
@@ -8321,9 +8339,10 @@ class projExpForm of FORM
 //            I_DestFolder1.value:=""
 //            I_DestFolder2.value:=form.project.DestFolder
 //         endif
+
+			
          //Jonny Kwekkeboom 03/09/2997 for Listbox Repaint error
-         I_DIRSUBFOLDER_LBOX.dataSource:=Null
-         I_DIRSUBFOLDER_LBOX.datasource:= "Array form.project.NeedDirs"
+		//	msgBox("needDirs size = "+form.project.NeedDirs.size) 
          if form.project.NeedDirs.size>0
             if left(form.project.NeedDirs[1],1)="{"
                I_DirSubFolder1.value:=Substr(form.project.NeedDirs[1],1,AT("\",form.project.NeedDirs[1]))
@@ -8336,12 +8355,21 @@ class projExpForm of FORM
             I_DirSubFolder1.value:="{app}\"
             I_DirSubFolder2.value:=""
          endif
-         //check of build exe is inside InnoFiles....
+
+		  // I_DIRSUBFOLDER_LBOX.dataSource := ""
+         I_DIRSUBFOLDER_LBOX.dataSource := "Array form.project.NeedDirs"
+		   if form.project.NeedDirs.size>0
+			   I_DIRSUBFOLDER_DEL.enabled:=true
+				 I_DIRSUBFOLDER_LBOX.curSel = 1
+			endif
+
+		   //check of build exe is inside InnoFiles....
          if not class::IfInsideInnoFiles(form.project.getFullPath(form.project.exename))
             if file(form.project.getFullPath(form.project.exename))
                form.project.Needfiles.add(form.project.getFullPath(form.project.exename)+" >> DestDir: {app}")
             endif
          endif
+
          if form.project.Needfiles.size>0
             if at(">",form.project.Needfiles[1])>0
                local cDestDir
@@ -8354,8 +8382,8 @@ class projExpForm of FORM
             endif
          endif
          //J.Kwekkeboom 03/09/2007 Added for Listbox Repaint error (!!)
-         I_FILESSUBFOLDER_LBOX.dataSource := NULL
-         I_FILESSUBFOLDER_LBOX.datasource:= "Array form.project.Needfiles"
+         I_FILESSUBFOLDER_LBOX.dataSource := ""
+         I_FILESSUBFOLDER_LBOX.datasource := "Array form.project.Needfiles"
          form.notebook1.innonotebook.I_FILE_DEL.enabled:=(form.project.NeedFiles.size>0)
          form.notebook1.innonotebook.I_FILESSUBFOLDER_ADD.enabled:=(form.project.NeedFiles.size>0)
          //D.Brooks 11/09/2004 - Update the Flags button
@@ -8662,7 +8690,7 @@ class projExpForm of FORM
 
    function CKBDEONLYINSTALL_onChange()
       if this.value
-			//look for bde installer in {app}\dBASE\Plus10\Runtime\BDE Installer
+			//look for bde installer in {app}\dBASE\Plus11\Runtime\BDE Installer
 			cBDEInstall = LEFT(_app.exename,RAT(lower("\bin"),lower(_app.exename))) // directory up to but, not including bin folder 
 			cBDEInstallfile = cBDEInstall+"Runtime\BDE Installer\BDE_Setup.exe"
 			form.project.bdeinstallfile = cBDEInstallfile
@@ -9684,6 +9712,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function addAsIncluded( cExt )
       if form.notebook1.DEOApplicationCheck.value
          return false
@@ -9693,6 +9742,27 @@ class projExpForm of FORM
       else
          return false
       endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9789,6 +9859,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function checkToolBar()
       // This function should be called in the form.onGotFocus event.
       // The user indicates ToolBar preference with _app.speedBar.
@@ -9834,6 +9925,27 @@ class projExpForm of FORM
       endIf
       //form.setFocus()
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9968,6 +10080,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function compileProg()
    LOCAL cSourceFileName, bCompileSuccess, cOldStatus
       if form.treeview1.selected.typ <> "H"
@@ -10000,6 +10133,27 @@ class projExpForm of FORM
          endif
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10074,6 +10228,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function showLog()
        LOCAL cString, cLogFile
 
@@ -10123,6 +10298,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function editProg()
       if form.treeview1.selected.typ <> "H"
          if form.CurrentFileObject.canBeEdited
@@ -10135,6 +10331,27 @@ class projExpForm of FORM
          endif
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10255,6 +10472,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function I_Liz_LBoxRefresh(nNr)
       if pcount()=0
          return
@@ -10305,6 +10543,27 @@ class projExpForm of FORM
       form.notebook1.innonotebook.I_LIZ_LBOX.dataSource:="Array form.LizArr"
       form.notebook1.innonotebook.I_LIZ_LBOX.cursel:=x
    return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10424,6 +10683,27 @@ class projExpForm of FORM
 //      form.ScriptIsGenerate:=false
 //      form.project.Modified:=true
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10570,12 +10850,54 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function EmptyLogButton_onClick
       local oLog
       oLog = new ProjectLog( form.Project )
       oLog.EmptyLog()
       release object oLog
       return true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10665,6 +10987,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function isBinaryFile( cFileName )
       local f, nSize, buffer, bIsBinary, i, nBytesRead
       bIsBinary = false
@@ -10684,6 +11027,27 @@ class projExpForm of FORM
       catch (exception e)
       endtry
       return bIsBinary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10750,6 +11114,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function checkSave()
       if type("form.project") = "O" and form.project.Modified = true
         nResult = form.qLang.iMsgbox("Project has been changed. Save Project changes?","Save",35)
@@ -10765,6 +11150,27 @@ class projExpForm of FORM
         endif
       endif
       return true //cancel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10830,6 +11236,27 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function execute()
       LOCAL eFn
       eFn = form.Project.getFullPath(form.notebook1.exename.value)
@@ -10839,6 +11266,27 @@ class projExpForm of FORM
       endif
       run(true,eFn)
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10880,6 +11328,27 @@ class projExpForm of FORM
         debug (mFn)
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
