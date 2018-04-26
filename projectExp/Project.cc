@@ -136,7 +136,9 @@ CLASS project(f)
      //language to english...
 //     this.UninsHSLanguages:= "EN"
 //  endif
-
+	
+	//added for installer image vsf support
+	this.cCurrentVSF = "Windows"
 
   ** defaults
   this.AppName         = this.UninsHSAppName
@@ -721,6 +723,8 @@ CLASS project(f)
                      //MsgBox("LOAD Phase 4 - Inno setup this.NeedFiles.add["+data+"]")
                 case left(upper(keyword),8) ="BDEALIAS"     
                      this.BDEAlias.Add(data)
+					 case left(upper(keyword),10) = "CURRENTVSF" //KK 04/26/2018 added for inno script vsf support
+							this.cCurrentvsf = data
              endcase //phase4
         endcase
      enddo
@@ -1307,6 +1311,9 @@ CLASS project(f)
       h1.puts("INILARGEBUTTONS="+this.INILargeButtons) //KK added 02/26/2014 for 9.0.0.0
       
       h1.puts("UACRB="+this.UACRB)
+		
+		//KK 04/26/2018 added support for INNO script vsf files
+		h1.puts("CURRENTVSF="+this.cCurrentvsf)
 
       for i=1 to this.BDEAlias.size
           h1.puts("BDEAlias"+i+"="+this.BDEAlias[i])

@@ -53,7 +53,7 @@ return
 
 ** END HEADER -- do not remove this line
 //
-// Generated on 03/23/2017
+// Generated on 04/26/2018
 //
 parameter bModal
 local f
@@ -67,8 +67,8 @@ endif
 
 class projExpForm of FORM
    set procedure to :ProjExp:Project.cc additive persistent
-   set procedure to :CoreShared:coreSplitter.cc additive persistent
    set procedure to :CoreShared:CoreFormViewer.CC additive persistent
+   set procedure to :CoreShared:coreSplitter.cc additive persistent
    with (this)
       onGotFocus = class::FORM_ONGOTFOCUS
       onLostFocus = {; this.showFormatBar(false)}
@@ -82,8 +82,8 @@ class projExpForm of FORM
       metric = 6	// Pixels
       persistent = true
       height = 622.0
-      left = 95.0
-      top = 20.0
+      left = 57.0
+      top = 32.0
       width = 1023.0
       text = "Project Explorer"
       menuFile = ":ProjExp:pBuilderPlus.mnu"
@@ -792,6 +792,7 @@ class projExpForm of FORM
 
    this.NOTEBOOK1.FILENOTEBOOK.STRUCTUREGRID = new GRID(this.NOTEBOOK1.FILENOTEBOOK)
    with (this.NOTEBOOK1.FILENOTEBOOK.STRUCTUREGRID)
+      headingHeight = 22.0
       cellHeight = 22.0
       pageno = 3
       height = 362.0
@@ -931,7 +932,7 @@ class projExpForm of FORM
       width = 679.0
       colorNormal = "BtnText/BtnFace"
       pageno = 5
-      dataSource = 'ARRAY {"Defaults","Files","Menu Grp","Runtime","License","BDE Setting","INI","UAC Registry Settings","Script"}'
+      dataSource = 'ARRAY {"Defaults","Files","Menu Grp","Runtime","License","BDE Setting","INI","UAC Registry Settings","INNO Skin","Script"}'
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.RECTANGLE8 = new RECTANGLE(this.NOTEBOOK1.INNONOTEBOOK)
@@ -1344,7 +1345,7 @@ class projExpForm of FORM
       modify = false
       wrap = false
       fontSize = 9.0
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTTEXT = new TEXTLABEL(this.NOTEBOOK1.INNONOTEBOOK)
@@ -1354,13 +1355,12 @@ class projExpForm of FORM
       top = 66.0
       width = 400.0
       text = ""
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTGENERATE = new PUSHBUTTON(this.NOTEBOOK1.INNONOTEBOOK)
    with (this.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTGENERATE)
       onClick = class::I_SCRIPTGENERATE_ONCLICK
-      enabled = false
       height = 24.0
       left = 427.0
       top = 38.0
@@ -1370,7 +1370,7 @@ class projExpForm of FORM
       upBitmap = "RESOURCE SAVE :ProjExp:ProjExp.dll"
       disabledBitmap = "RESOURCE SAVE_DISABLED :ProjExp:ProjExp.dll"
       speedTip = "Generate script with settings"
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTNAME = new ENTRYFIELD(this.NOTEBOOK1.INNONOTEBOOK)
@@ -1384,7 +1384,7 @@ class projExpForm of FORM
       value = ""
       validErrorMsg = "Ungültige Eingabe "
       maxLength = 199
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_SCRIPTNAME_BUT = new PUSHBUTTON(this.NOTEBOOK1.INNONOTEBOOK)
@@ -1398,7 +1398,7 @@ class projExpForm of FORM
       speedBar = true
       upBitmap = "RESOURCE TS_OPEN"
       speedTip = "Change Scriptname"
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_DISPGROUPATEND = new CHECKBOX(this.NOTEBOOK1.INNONOTEBOOK)
@@ -1555,7 +1555,7 @@ class projExpForm of FORM
       speedBar = true
       upBitmap = "RESOURCE TS_RUN"
       speedTip = "Generate Install Program"
-      pageno = 9
+      pageno = 10
    endwith
 
    this.NOTEBOOK1.INNONOTEBOOK.I_UNINS_ICONUTIL = new CHECKBOX(this.NOTEBOOK1.INNONOTEBOOK)
@@ -3225,6 +3225,31 @@ class projExpForm of FORM
       alignVertical = 1	// Middle
    endwith
 
+   this.NOTEBOOK1.INNONOTEBOOK.IMAGE1 = new IMAGE(this.NOTEBOOK1.INNONOTEBOOK)
+   with (this.NOTEBOOK1.INNONOTEBOOK.IMAGE1)
+      height = 375.0
+      left = 201.0
+      top = 31.0
+      width = 477.0
+      dataSource = 'FILENAME "C:\Program Files (x86)\dBASE\Plus12\inno\Images\windows.png"'
+      pageno = 9
+   endwith
+
+   this.NOTEBOOK1.INNONOTEBOOK.LISTBOX1 = new LISTBOX(this.NOTEBOOK1.INNONOTEBOOK)
+   with (this.NOTEBOOK1.INNONOTEBOOK.LISTBOX1)
+      onSelChange = class::LISTBOX1_ONSELCHANGE
+      onOpen = class::LISTBOX1_ONOPEN
+      height = 372.0
+      left = 5.0
+      top = 32.0
+      width = 189.0
+      id = 231
+      colorHighLight = "HighLightText/HighLight"
+      dataSource = 'ARRAY {"Amakrits","AmethystKamri","AquaGraphite"}'
+      pageno = 9
+      vScrollBar = 1	// On
+   endwith
+
    this.NOTEBOOK1.LOGPROGRESS = new PROGRESS(this.NOTEBOOK1)
    with (this.NOTEBOOK1.LOGPROGRESS)
       visible = false
@@ -3738,7 +3763,7 @@ class projExpForm of FORM
       form.notebook1.fileNotebook.sourceViewer.anchor = 6
       form.notebook1.fileNotebook.structureGrid.anchor = 6
 
-      form.notebook1.innoNotebook.dataSource:='ARRAY {"'+form.qLang.iGetText("Defaults")+'","'+form.qLang.iGetText("Files")+'","'+form.qLang.iGetText("Group")+'","'+form.qLang.iGetText("Runtime")+'","'+form.qLang.iGetText("License")+'","'+form.qLang.iGetText("BDE Settings")+'","INI","'+ 'UAC Registry Setting","' +  form.qLang.iGetText("Script")+'"}'
+      form.notebook1.innoNotebook.dataSource:='ARRAY {"'+form.qLang.iGetText("Defaults")+'","'+form.qLang.iGetText("Files")+'","'+form.qLang.iGetText("Group")+'","'+form.qLang.iGetText("Runtime")+'","'+form.qLang.iGetText("License")+'","'+form.qLang.iGetText("BDE Settings")+'","INI","'+ 'UAC Registry Setting", "INNO Skin", "' +  form.qLang.iGetText("Script")+'"}'
 
       form.bLoading = false
       form.viewer = null
@@ -6158,8 +6183,14 @@ class projExpForm of FORM
               next
               h1.puts("")
            endif
-        
-           //03-09-2007 XP Maonfest can completed removed !!
+			  
+			  //added for vclStyles support 04/26/2018
+			  if NOT lower(this.parent.listbox1.value) == "windows" //don't include if using default
+				  h1.puts([Source: "]+LEFT(_app.exename,RAT(lower("\bin"),lower(_app.exename)))+[inno\VclStylesinno.dll"; DestDir: {app};  Flags: dontcopy])
+				  vsfFileName = this.parent.listbox1.value+".vsf"
+				  h1.puts([Source: "]+LEFT(_app.exename,RAT(lower("\bin"),lower(_app.exename)))+[inno\Styles\]+vsfFileName+["; DestDir: {app}; Flags: dontcopy ])
+				endif
+				//03-09-2007 XP Maonfest can completed removed !!
            //Not more needed so Vista/XP support in new property dbVista
            /*
            //New XP Manifestfile
@@ -6378,12 +6409,11 @@ class projExpForm of FORM
             h1.puts("[_EndOfScript]")
             //J.Kwekkeboom 08/12/2012 - Changed name for new Include folder so ISG dont needed
             if form.NewIncludeExists
-              h1.puts("; © dBase Portions by Jonny Kwekkeboom © 2002-"+Year(date()))           
+              h1.puts("; © dBase Portions by Jonny Kwekkeboom, Martin Kay, Kathy Kolosky © 2002-"+Year(date()))           
             else
               h1.puts("; © HiSoft2000 http://www.Hisoft2000.de Mail: HiSoft2000@HiSoft2000.de © 2002-"+Year(date()))         
             endif
-            h1.puts("; Visual dBase, dB2K, dBase SE and dBase Plus © dataBased Intelligence.Inc Homepage: http://www.databi.com/")
-            h1.puts("; dQuery for Delphi,C++,dBASE PLUS © dataBased Intelligence.Inc see also Homepage: http://www.dQuery.com/")
+            h1.puts("; dBase Plus © dBASE LLC Homepage: http://www.dbase.com/")
             h1.puts("")
             if not RB3.value
                //Need for call runtime include file....
@@ -6397,7 +6427,14 @@ class projExpForm of FORM
                  h1.puts("end;")
                   h1.puts("")
                endif
-               h1.puts("procedure CurPageChanged(CurPageID: Integer);")
+					
+					//KK added 04/26/2018 - adding new vcl script 
+					if NOT lower(this.parent.listbox1.value) == "windows"
+						h1.puts("procedure LoadVCLStyle(VClStyleFile: String); external 'LoadVCLStyleA@files:VclStylesInno.dll stdcall';")
+						h1.puts("procedure UnLoadVCLStyles; external 'UnLoadVCLStyles@files:VclStylesInno.dll stdcall';")
+					endif
+               
+					h1.puts("procedure CurPageChanged(CurPageID: Integer);")
                h1.puts("begin")
                //J.Kwekkeboom 01/18/2007 - Changed for new ISG adding
                //h1.puts("   #if 'true' == SM_dBASERuntime")
@@ -6435,6 +6472,14 @@ class projExpForm of FORM
                      h1.puts("end;")
                      h1.puts("")
                   endif
+						
+						//KK added 04/26/2018 - adding new vcl script 
+						if NOT lower(this.parent.listbox1.value) == "windows"
+							h1.puts("procedure LoadVCLStyle(VClStyleFile: String); external 'LoadVCLStyleA@files:VclStylesInno.dll stdcall';")
+							h1.puts("procedure UnLoadVCLStyles; external 'UnLoadVCLStyles@files:VclStylesInno.dll stdcall';")
+							h1.puts("")
+						endif	
+						
                   h1.puts("procedure CurPageChanged(CurPageID: Integer);")
                   h1.puts("begin")
                   if I_DISPGROUPATEND.value
@@ -6475,6 +6520,9 @@ class projExpForm of FORM
                     h1.puts("  #endIf")
                  endif
                endif
+					if NOT lower(this.parent.listbox1.value) == "windows"
+						h1.puts("UnLoadVCLStyles;")
+					endif	
                h1.puts("end;")
                h1.puts("")
             endif
@@ -6483,6 +6531,11 @@ class projExpForm of FORM
             h1.puts("function InitializeSetup(): Boolean;")
             h1.puts("var S: String;")
             h1.puts("begin")
+				if NOT lower(this.parent.listbox1.value) == "windows"
+					vsfFileName = this.parent.listbox1.value+".vsf"
+					h1.puts([ExtractTemporaryFile(']+vsfFileName+[');])
+					h1.puts([  LoadVCLStyle(ExpandConstant('{tmp}\]+vsfFileName+['));])
+				endif	
             h1.Puts(" (** Create a Mutex so we can not double call this Setup.exe file **)")
             h1.Puts("  S:='{#AppName}';")
             h1.puts("  Result:= true;")
@@ -8573,7 +8626,7 @@ class projExpForm of FORM
             UACRB2.value := false
             UACRB3.value := false
          ENDCASE
-
+			
          //D.Brooks 11/11/2004 - Trigger license language combobox change
          //so that the license fields automatically fill in if files are named.
          Lang_CB.onChange()
@@ -8785,6 +8838,26 @@ class projExpForm of FORM
          form.project.enableuac = 0
       endif
 
+      return
+
+   function LISTBOX1_onOpen()
+	   alist = new array()
+		aList.dir(LEFT(_app.exename,RAT(lower("\bin"),lower(_app.exename)))+"\inno\Images\*.png")
+		form.aImages = new Array()
+		for x = 1 to alist.size/5
+			form.aImages.add(LEFT(aList[x,1],LEN(aList[x,1])-4))
+		endfor
+      this.datasource = "ARRAY form.aImages"
+		nCurrentVSF = form.aImages.scan(form.project.cCurrentVSF)
+		if nCurrentVSF>0
+			this.curSel = nCurrentvsf	
+		endif	
+      return
+
+   function LISTBOX1_onSelChange()
+	   this.parent.image1.datasource = 'FILENAME "'+LEFT(_app.exename,RAT(lower("\bin"),lower(_app.exename)))+'inno\images\'+this.value+'.png"' // directory up to but, not including bin folder 
+		form.project.cCurrentVSF = this.value
+		class::I_UpdateValues()
       return
 
    function MAINPROG_onChange
@@ -9733,6 +9806,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function addAsIncluded( cExt )
       if form.notebook1.DEOApplicationCheck.value
          return false
@@ -9742,6 +9955,146 @@ class projExpForm of FORM
       else
          return false
       endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9880,6 +10233,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function checkToolBar()
       // This function should be called in the form.onGotFocus event.
       // The user indicates ToolBar preference with _app.speedBar.
@@ -9925,6 +10418,146 @@ class projExpForm of FORM
       endIf
       //form.setFocus()
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10101,6 +10734,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function compileProg()
    LOCAL cSourceFileName, bCompileSuccess, cOldStatus
       if form.treeview1.selected.typ <> "H"
@@ -10133,6 +10906,146 @@ class projExpForm of FORM
          endif
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10249,6 +11162,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function showLog()
        LOCAL cString, cLogFile
 
@@ -10319,6 +11372,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function editProg()
       if form.treeview1.selected.typ <> "H"
          if form.CurrentFileObject.canBeEdited
@@ -10331,6 +11524,146 @@ class projExpForm of FORM
          endif
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10493,6 +11826,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function I_Liz_LBoxRefresh(nNr)
       if pcount()=0
          return
@@ -10543,6 +12016,146 @@ class projExpForm of FORM
       form.notebook1.innonotebook.I_LIZ_LBOX.dataSource:="Array form.LizArr"
       form.notebook1.innonotebook.I_LIZ_LBOX.cursel:=x
    return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10683,6 +12296,146 @@ class projExpForm of FORM
 //      form.ScriptIsGenerate:=false
 //      form.project.Modified:=true
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10871,12 +12624,292 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function EmptyLogButton_onClick
       local oLog
       oLog = new ProjectLog( form.Project )
       oLog.EmptyLog()
       release object oLog
       return true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11008,6 +13041,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function isBinaryFile( cFileName )
       local f, nSize, buffer, bIsBinary, i, nBytesRead
       bIsBinary = false
@@ -11027,6 +13200,146 @@ class projExpForm of FORM
       catch (exception e)
       endtry
       return bIsBinary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11135,6 +13448,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function checkSave()
       if type("form.project") = "O" and form.project.Modified = true
         nResult = form.qLang.iMsgbox("Project has been changed. Save Project changes?","Save",35)
@@ -11150,6 +13603,146 @@ class projExpForm of FORM
         endif
       endif
       return true //cancel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11257,6 +13850,146 @@ class projExpForm of FORM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    function execute()
       LOCAL eFn
       eFn = form.Project.getFullPath(form.notebook1.exename.value)
@@ -11266,6 +13999,146 @@ class projExpForm of FORM
       endif
       run(true,eFn)
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11328,6 +14201,146 @@ class projExpForm of FORM
         debug (mFn)
       endif
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

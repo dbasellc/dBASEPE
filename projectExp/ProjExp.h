@@ -1,6 +1,6 @@
 //--- ProjExp.h - Header file for for the dBASE Plus Project Explorer ----
 
-#define PE_BUILD "1065 (03/23/2017)"  // Start at "1009 (12/09/2004)" - Dave Casler 
+#define PE_BUILD "1066 (04/26/2018)"  // Start at "1009 (12/09/2004)" - Dave Casler 
 
 
 #define _DEBUG
