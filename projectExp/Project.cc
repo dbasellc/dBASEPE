@@ -138,7 +138,7 @@ CLASS project(f)
 //  endif
 	
 	//added for installer image vsf support
-	this.cCurrentVSF = "Windows"
+	this.cCurrentVSF = "windows"
 
   ** defaults
   this.AppName         = this.UninsHSAppName
